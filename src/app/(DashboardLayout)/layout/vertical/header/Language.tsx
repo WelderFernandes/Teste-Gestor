@@ -1,15 +1,14 @@
-import React from 'react';
+import { setLanguage } from '@/store/customizer/CustomizerSlice';
+import { useDispatch, useSelector } from '@/store/hooks';
+import { AppState } from '@/store/store';
+import { Stack } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
-import { useSelector, useDispatch } from '@/store/hooks';
-import { setLanguage } from '@/store/customizer/CustomizerSlice';
-import { Stack } from '@mui/system';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useEffect } from 'react';
-import { AppState } from '@/store/store';
 
 const Languages = [
   {

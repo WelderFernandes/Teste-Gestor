@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import Link from 'next/link';
+import { Stack } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -7,11 +6,12 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import Typography from '@mui/material/Typography';
-import * as dropdownData from './data';
-import { useSession, signOut } from "next-auth/react"
 import { IconMail } from '@tabler/icons-react';
-import { Stack } from '@mui/system';
+import { signOut, useSession } from "next-auth/react";
 import Image from 'next/image';
+import Link from 'next/link';
+import { useState } from 'react';
+import * as dropdownData from './data';
 
 
 const Profile = () => {

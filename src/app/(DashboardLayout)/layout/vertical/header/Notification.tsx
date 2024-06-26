@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import Scrollbar from '@/app/components/custom-scroll/Scrollbar';
 import Avatar from '@mui/material/Avatar';
 import Badge from '@mui/material/Badge';
 import Box from '@mui/material/Box';
@@ -8,11 +8,11 @@ import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
+import { useState } from 'react';
 import * as dropdownData from './data';
-import Scrollbar from '@/app/components/custom-scroll/Scrollbar';
 
+import { Stack } from '@mui/material';
 import { IconBellRinging } from '@tabler/icons-react';
-import { Stack } from '@mui/system';
 import Link from 'next/link';
 
 const Notifications = () => {
