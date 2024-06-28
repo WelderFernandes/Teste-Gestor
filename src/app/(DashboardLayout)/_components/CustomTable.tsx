@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import CustomCheckbox from '@/app/components/forms/theme-elements/CustomCheckbox'
 import CustomSwitch from '@/app/components/forms/theme-elements/CustomSwitch'
-import { fetchProducts } from '@/store/apps/eCommerce/ECommerceSlice'
+// import { fetchProducts } from '@/store/apps/eCommerce/ECommerceSlice'
 import { useDispatch } from '@/store/hooks'
 import Avatar from '@mui/material/Avatar'
 import Box from '@mui/material/Box'
@@ -37,7 +37,7 @@ import PageContainer from '@/app/components/container/PageContainer'
 import { Close } from '@mui/icons-material'
 import { Button, Drawer, List, ListItem } from '@mui/material'
 import { visuallyHidden } from '@mui/utils'
-import { ChangeEvent, MouseEvent, useEffect, useState } from 'react'
+import { ChangeEvent, MouseEvent, useState } from 'react'
 
 import { IUser } from '@/http/sign-in-with-password'
 import CustomMenu from './CustomMenu'
@@ -333,19 +333,20 @@ export default function CustomTable({
   }
 
   // Fetch Products
-  useEffect(() => {
-    dispatch(fetchProducts())
-  }, [dispatch, selected])
+  // useEffect(() => {
+  //   dispatch(fetchProducts())
+  // }, [dispatch, selected])
 
   const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
     console.log(event.target.value.length)
-    // if (event.target.value.length >= 3) {
+    if (event.target.value.length >= 3) {
     const filteredRows: IUser[] = data.filter((row) => {
-      return row.first_name.toLowerCase().includes(event.target.value)
+      console.log("🚀 ~ constfilteredRows:IUser[]=data.filter ~ row:", row)
+      return row.first_name!.toLowerCase().includes(event.target.value)
     })
     setSearch(event.target.value)
     setRows(filteredRows)
-    // }
+    }
   }
 
   // This is for the sorting
