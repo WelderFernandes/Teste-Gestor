@@ -20,17 +20,18 @@ interface CheckResponse {
 }
 
 export interface IUser {
-  id: string
-  nivel: any[]
-  last_login: string
-  first_name: string
-  last_name: string
-  email: string
-  telefone: string
-  foto: string
-  is_active: boolean
-  is_staff: boolean
-  categoria: string
+  id?: string
+  nivel?: any[]
+  last_login?: string
+  first_name?: string
+  last_name?: string
+  email?: string
+  telefone?: string
+  foto?: string
+  is_active?: boolean
+  is_staff?: boolean
+  categoria?: string
+  access_token?: string
 }
 
 
@@ -44,7 +45,7 @@ export async function SignInWithPassword({ email, password }: SignInWithPassword
       }
   }).json<SignInWithPasswordResponse>()
 
-  console.log({result})
+
   const check = await api.post('auth/register/check/', {
     json: {
         token: result.access_token
@@ -52,7 +53,6 @@ export async function SignInWithPassword({ email, password }: SignInWithPassword
     
   }).json<CheckResponse>()
   
-  console.log("🚀 ~ SignInWithPassword ~ Check:", check)
 
     const user = await api.get(`accounts/usuarios/${check.user_id}`, {
       headers: {
@@ -60,7 +60,7 @@ export async function SignInWithPassword({ email, password }: SignInWithPassword
       }
     }).json<IUser>()
 
-  return { user }
+  return { user, result }
 
   } catch (error: HTTPError | any) {
     if (error instanceof HTTPError) {

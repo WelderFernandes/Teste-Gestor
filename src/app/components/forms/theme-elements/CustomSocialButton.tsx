@@ -1,6 +1,4 @@
-import React from 'react';
-import { styled }  from "@mui/system";
-import { Button } from '@mui/material';
+import { Button, styled } from '@mui/material';
 
 const CustomSocialButton = styled((props: any) => (
   <Button variant="outlined" size="large" color="inherit" {...props} />

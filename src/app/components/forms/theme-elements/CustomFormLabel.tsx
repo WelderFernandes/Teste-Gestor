@@ -1,6 +1,4 @@
-import React from 'react';
-import { styled }  from "@mui/system";
-import { Typography } from '@mui/material';
+import { Typography, styled } from '@mui/material';
 
 const CustomFormLabel = styled((props: any) => (
   <Typography

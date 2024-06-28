@@ -1,6 +1,7 @@
 import { Authenticate } from '@/auth';
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import { cookies } from 'next/headers';
 
 const handler = NextAuth({
   site: process.env.NEXTAUTH_URL || 'http://localhost:3000',
@@ -23,26 +24,20 @@ const handler = NextAuth({
       authorize: async (credentials) => {
         if(!credentials) return null
           const user = await Authenticate(credentials);
-            console.log("🚀 ~ authorize: ~ 1:", user)
+           cookies().set('token-access', user.result.access_token)
           return  user
       },
-      // callbacks: {
-      //   async session({ session, user, token }) {
-      //     console.log("🚀 ~ session ~ 4:", user)
-      //     session.user = {
-      //       ...session.user,
-      //       id: user.id,
-      //       token: token
-      //     }
-      //     return session
-      //   },
-      // }
     }),
   ],
   callbacks: {
     async session({ session, token }) {
+      // session.user = {
+      //   ...session.user,
+      //   access_token: token.user.result.access_token
+      // }
       console.log("🚀 ~ session ~ token:", token)
       session.user = token.user.user;
+      session.user.access_token = token.user.result.access_token
       return session;
     },
     async jwt({ token, user }) {
