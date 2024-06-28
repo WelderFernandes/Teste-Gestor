@@ -1,24 +1,23 @@
-import { useState } from "react";
+import { loginType } from "@/app/(DashboardLayout)/types/auth/auth";
+import CustomCheckbox from "@/app/components/forms/theme-elements/CustomCheckbox";
+import CustomFormLabel from "@/app/components/forms/theme-elements/CustomFormLabel";
+import { Alert, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
 import Stack from "@mui/material/Stack";
-import { TextField, Alert } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import Link from "next/link";
-import { loginType } from "@/app/(DashboardLayout)/types/auth/auth";
-import CustomCheckbox from "@/app/components/forms/theme-elements/CustomCheckbox";
-import CustomTextField from "@/app/components/forms/theme-elements/CustomTextField";
-import CustomFormLabel from "@/app/components/forms/theme-elements/CustomFormLabel";
-import AuthSocialButtons from "./AuthSocialButtons";
 import { signIn, useSession } from "next-auth/react";
+import Link from "next/link";
 import { redirect } from "next/navigation";
+import { useState } from "react";
+import AuthSocialButtons from "./AuthSocialButtons";
 
 const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
   const { data: session } = useSession();
-  const [username, setUsername] = useState("admin");
+  const [email, setEmail] = useState("admin");
   const [password, setPassword] = useState("admin123");
   const [error, setError] = useState("");
 
@@ -26,7 +25,7 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
     e.preventDefault();
     const result = await signIn("credentials", {
       redirect: false,
-      username,
+      email,
       password,
     });
     if (result?.error) {
@@ -67,7 +66,7 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
       {error ? (
         <Box mt={3}>
           <Alert severity="error">
-            Sign-in error: Username or Password is Wrong
+            Sign-in error: Email or Password is Wrong
           </Alert>
         </Box>
       ) : (
@@ -77,8 +76,8 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
       <form onSubmit={handleSubmit}>
         <Stack>
           <Box>
-            <CustomFormLabel htmlFor="username">Username</CustomFormLabel>
-            <TextField id="username" variant="outlined" error={error !== ''} value={username} fullWidth onChange={(e) => setUsername(e.target.value)} />
+            <CustomFormLabel htmlFor="email">Email</CustomFormLabel>
+            <TextField id="email" variant="outlined" error={error !== ''} value={email} fullWidth onChange={(e) => setEmail(e.target.value)} />
           </Box>
           <Box>
             <CustomFormLabel htmlFor="password">Password</CustomFormLabel>

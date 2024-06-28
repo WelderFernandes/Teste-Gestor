@@ -1,36 +1,58 @@
+import { Authenticate } from '@/auth';
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import GoogleProvider from 'next-auth/providers/google';
-import GitHubProvider from 'next-auth/providers/github';
 
 const handler = NextAuth({
   site: process.env.NEXTAUTH_URL || 'http://localhost:3000',
+  strategy: 'jwt',
   providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    }),
-    GitHubProvider({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET,
-    }),
+    // GoogleProvider({
+    //   clientId: process.env.GOOGLE_CLIENT_ID,
+    //   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    // }),
+    // GitHubProvider({
+    //   clientId: process.env.GITHUB_ID,
+    //   clientSecret: process.env.GITHUB_SECRET,
+    // }),
     CredentialsProvider({
       name: 'credentials',
       credentials: {
-        username: { label: 'Username', type: 'text' },
+        email: { label: 'Email', type: 'text' },
         password: { label: 'Password', type: 'password' },
       },
       authorize: async (credentials) => {
-        // Add your own authentication logic here
-        if (credentials.username === 'admin' && credentials.password === 'admin123') {
-          // Return user object if credentials are valid
-          return Promise.resolve({ id: 1, name: 'Admin', email: 'admin@example.com' });
-        } else {
-          // Return null if credentials are invalid
-          return Promise.resolve(null);
-        }
+        if(!credentials) return null
+          const user = await Authenticate(credentials);
+            console.log("🚀 ~ authorize: ~ 1:", user)
+          return  user
       },
+      // callbacks: {
+      //   async session({ session, user, token }) {
+      //     console.log("🚀 ~ session ~ 4:", user)
+      //     session.user = {
+      //       ...session.user,
+      //       id: user.id,
+      //       token: token
+      //     }
+      //     return session
+      //   },
+      // }
     }),
   ],
+  callbacks: {
+    async session({ session, token }) {
+      console.log("🚀 ~ session ~ token:", token)
+      session.user = token.user.user;
+      return session;
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        token.user = user;
+      }
+      return token;
+    },
+  }
 });
+
 export { handler as GET, handler as POST };
+

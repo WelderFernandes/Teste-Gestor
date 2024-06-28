@@ -74,6 +74,9 @@ importers:
       i18next:
         specifier: ^23.5.1
         version: 23.11.5
+      ky:
+        specifier: ^1.4.0
+        version: 1.4.0
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -2956,6 +2959,10 @@ packages:
 
   konva@9.3.12:
     resolution: {integrity: sha512-IxX+ka+gVGm63APkB/taepMxpbUdjfLBUA1OIqx7nbH3126Df6eAuVWasH3qh3vg4ctRseops031sZO0b2O33A==}
+
+  ky@1.4.0:
+    resolution: {integrity: sha512-tPhhoGUiEiU/WXR4rt8klIoLdnTtyu+9jVKHd/wauEjYud32jyn63mzKWQweaQrHWxBQtYoVtdcEnYX1LosnFQ==}
+    engines: {node: '>=18'}
 
   language-subtag-registry@0.3.23:
     resolution: {integrity: sha512-0K65Lea881pHotoGEa5gDlMxt3pctLi2RplBb7Ezh4rRdLEOtgi7n4EwK9lamnUCkKBqaeKRVebTq6BAxSkpXQ==}
@@ -7862,6 +7869,8 @@ snapshots:
   kleur@3.0.3: {}
 
   konva@9.3.12: {}
+
+  ky@1.4.0: {}
 
   language-subtag-registry@0.3.23: {}
 
